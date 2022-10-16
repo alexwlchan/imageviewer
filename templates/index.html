@@ -1,0 +1,46 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head>
+
+<style>
+    body {
+        background: url('{{ static_dir }}/memphis-mini-dark.png');
+        margin: 1em;
+    }
+
+    a {
+      color: white;
+    }
+
+    .card a {
+        display: block;
+    }
+
+    .card img {
+        height: 200px;
+    }
+
+    .card {
+        margin-right: 10px;
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+
+    h2 {
+      color: white;
+    }
+</style>
+
+<h2>images from <a href="file://{{ root }}">file://{{ root }}</a></h2>
+
+{% for im in images %}
+  {% set path, metadata = im %}
+  <div class="card" style="background: {{ metadata.tint_color }}">
+    <a href="file://{{ root }}/{{ path }}">
+
+      <img src="file://{{ root }}/{{ path }}" loading="lazy" style="aspect-ratio: {{ metadata.dimensions.width / metadata.dimensions.height }}">
+    </a>
+  </div>
+{% endfor %}
