@@ -2,6 +2,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <title>images from {{ root }}</title>
 </head>
 
 <style>
@@ -33,7 +35,7 @@
     }
 </style>
 
-<h2>images from <a href="file://{{ root }}">file://{{ root }}</a></h2>
+<h2>images from <a href="file://{{ root }}">{{ root }}</a></h2>
 
 {% for im in images %}
   {% set path, metadata = im %}

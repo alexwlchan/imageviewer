@@ -75,12 +75,9 @@ class ImageViewerCache:
 
         return self
 
-    def write(self):
+    def __exit__(self, *exc_details):
         with open(self._cache_entry_path, "w") as outfile:
             outfile.write(json.dumps(self._data, indent=2, sort_keys=True))
-
-    def __exit__(self, *exc_details):
-        self.write()
 
     def add_image(self, path):
         rel_path = os.path.relpath(path, root)
@@ -116,7 +113,10 @@ if __name__ == "__main__":
 
     with ImageViewerCache(root) as cache:
         for path in tqdm.tqdm(list(get_image_paths_under(root))):
-            cache.add_image(path)
+            try:
+                cache.add_image(path)
+            except subprocess.CalledProcessError as e:
+                print(e)
 
         environment = Environment(loader=FileSystemLoader("templates/"))
         template = environment.get_template("index.html")
