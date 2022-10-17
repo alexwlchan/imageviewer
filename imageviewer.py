@@ -90,13 +90,18 @@ class ImageViewerCache:
         else:
             im = Image.open(path)
 
+            try:
+                tint_color = as_hex(choose_tint_color_for_file(path))
+            except subprocess.CalledProcessError as e:
+                tint_color = '#999999'
+
             self._data["images"][rel_path] = {
                 "mtime": os.stat(path).st_mtime,
                 "dimensions": {
                     "width": im.width,
                     "height": im.height,
                 },
-                "tint_color": as_hex(choose_tint_color_for_file(path)),
+                "tint_color": tint_color,
             }
 
     def get_images(self):
@@ -113,10 +118,7 @@ if __name__ == "__main__":
 
     with ImageViewerCache(root) as cache:
         for path in tqdm.tqdm(list(get_image_paths_under(root))):
-            try:
-                cache.add_image(path)
-            except subprocess.CalledProcessError as e:
-                print(e)
+            cache.add_image(path)
 
         environment = Environment(loader=FileSystemLoader("templates/"))
         template = environment.get_template("index.html")
