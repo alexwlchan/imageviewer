@@ -1,7 +1,7 @@
 # imageviewer
 
 This is a script to help me browse images.
-It scans a folder for image files, then arranges them in a grid.
+It scans a folder for image files (plus any subfolders), then arranges them in a grid.
 I can click any image to go to the original file:
 
 ![A collection of images arranged in a grid on a dark background.](screenshot.png)
