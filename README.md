@@ -1,6 +1,7 @@
 # imageviewer
 
-This is a script to help me browse images.
+I have a bunch of images on my hard drive, and some of them are stored in heavily nested folder structures.
+This is a script to help me look through them images.
 It scans a folder for image files (plus any subfolders), then arranges them in a grid.
 I can click any image to go to the original file:
 
